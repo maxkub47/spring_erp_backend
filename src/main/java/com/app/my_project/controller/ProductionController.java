@@ -62,5 +62,13 @@ public class ProductionController {
     productionRepository.deleteById(id);
   }
 
-  
+  @PutMapping("/updatePrice/{id}")
+    public void updatePrice(
+            @PathVariable Long id,
+            @RequestBody ProductionEntity productionEntity) {
+        ProductionEntity p = productionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("production not found"));
+        p.setPrice(productionEntity.getPrice());
+        productionRepository.save(p);
+    }
 }
